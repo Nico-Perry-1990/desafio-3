@@ -325,3 +325,8 @@ aside{
   padding-bottom: 15px;
 }
 
+/* Media Querys */
+
+@media screen and (min-width: 640px) {
+  .nav-link{display: flex;}
+}
