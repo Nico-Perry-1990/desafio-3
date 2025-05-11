@@ -165,7 +165,6 @@ aside{
     grid-area: main;
     padding: 15px;
     display: grid;
-    flex-wrap: wrap;
     gap: 20px;
     overflow: visible;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -325,3 +324,4 @@ aside{
 .icon {
   padding-bottom: 15px;
 }
+
