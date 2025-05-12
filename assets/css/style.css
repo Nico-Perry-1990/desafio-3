@@ -12,6 +12,7 @@
 }
 
 /* Header */
+
 .header {
     grid-area: header;
     background-color: #ffffff;
@@ -53,7 +54,6 @@
     margin-bottom: 0px;
   }
 
-
   .navbar-menu {
     list-style: none;
     display: flex;
@@ -87,6 +87,7 @@
   .header-bottom{
     display: flex;
     justify-content: center;
+    text-align: center;
     background-color: #f7f7f7;
     color: black;
     padding: 0px;
@@ -100,19 +101,112 @@
     margin: 0;
     padding: 0;
   }
+  #menu-check {
+    display: none;
+  }
+  
+  #menu-check + label {
+    cursor: pointer;
+    display: none;
+  }
+  
+  .btn-menu {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #555;
+    position: relative;
+    margin-left: 10px;
+  }
+  
+  .btn-menu > div {
+    position: absolute;
+    width: 60%;
+    height: 10%;
+    left: 20%;
+    background-color: #333;
+    border-radius: 3px;
+    transition: all 0.2s ease-out;
+  }
+  
+  .stick1 {
+    top: 22%;
+  }
+  .stick2 {
+    top: 45%;
+  }
+  .stick3 {
+    bottom: 22%;
+  }
+  
+  #menu-check:checked + label .stick1 {
+    transform: rotate(45deg);
+    top: 45%;
+    width: 70%;
+    left: 15%;
+  }
+  #menu-check:checked + label .stick2 {
+    transform: rotate(-45deg);
+    top: 45%;
+    width: 70%;
+    left: 15%;
+  }
+  #menu-check:checked + label .stick3 {
+    height: 0;
+  }
+  
+  .menu-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: #333;
+    color: white;
+    padding: 2rem 1rem;
+    transition: left 0.3s ease;
+    z-index: 999;
+  }
+  
+  #menu-check:checked + label + .menu-sidebar {
+    left: 0;
+  }
+  
+  .menu-sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .menu-sidebar li {
+    font-size: 1.2rem;
+    border-bottom: 1px solid #555;
+    padding-bottom: 0.5rem;
+  }
+  
+  .menu-sidebar p {
+    margin: 0;
+    color: white;
+  }
+  
 /* Sidebar */
 aside{
     grid-area: sidebar;
 }
 .sidebar{
+    position: sticky;
     display: flex;
     flex-direction: column;
     max-width: 100%;
     padding: 0 1vh 0 3vh;
-    height: 100vh;
     overflow-y: scroll;
 }
-
+:root {
+  --header-height: 100px; 
+  --footer-height: 300px;
+}
 .sidebar-tittle{
     font-size: 16px;
 }
@@ -207,7 +301,7 @@ aside{
 	display: flex;
 	flex-flow: column nowrap;
 	gap: 20px;
-	padding: 20px;
+	padding: 20px 20px 0 20px;
 }
 .card-img {
 	width: 100%;
@@ -327,6 +421,118 @@ aside{
 
 /* Media Querys */
 
-@media screen and (min-width: 640px) {
-  .nav-link{display: flex;}
+@media (max-width: 576px) {
+  #menu-check + label {
+    display: inline-block;
+  }
+
+  .nav-main {
+    display: none; 
+  }
+
+  .nav-account {
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+  #filter-btn:checked + .sidebar {
+    display: block;
+  }
+  .filter-btn {
+    display: inline-block;
+  }
+
+  .body{
+    grid-template-areas:
+		'header header header header'
+		'main main main main'
+		'footer footer footer footer';
+  }
+
+  .main{
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  .card{
+    height: auto;
+  }
+  .card-img {
+    height: 180px;
+  }
+  .card-img img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-sizes {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px;
+    scrollbar-width: thin; 
+  }
+  .card-body{
+    gap: 0px;
+  }
+  .card-sizes::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .card-sizes::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+
+  .card-sizes::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .btn-add {
+    flex: 0 0 auto; 
 }
+}
+
+@media screen and (min-width: 577px) and (max-width: 1024px) {
+	.body {
+		grid-template-areas:
+			'header header header header'
+			'sidebar main main main'
+			'footer footer footer footer';
+		grid-template-rows: 200px 1fr 150px;
+		grid-template-columns: 200px 1fr;
+	}
+  .main{
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  .sidebar{
+    width: 150px;
+    padding-left: 10px;
+    font-size: 12px;
+  }
+
+  .custom-checkbox{
+    font-size: 9px;
+  }
+
+	.main {
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+	}
+
+  .card{
+    height: auto;
+  }
+  .card-img{
+    height: fit-content;
+  }
+  .card-img img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
